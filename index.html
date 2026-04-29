@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0d3c9e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Malines Group Padel Cup 2026</title>
+  <style>
+    :root {
+      --gold: #ffffff;
+      --gold-dim: #a8c8f0;
+      --black: #0d3c9e;
+      --card: #0a308c;
+      --card2: #082478;
+      --border: #1a54cc;
+      --gray: #88b2e0;
+      --white: #f0f6ff;
+      --green: #4ade80;
+      --red: #c41230;
+      --nav-h: 62px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { height: 100%; }
+    body { min-height: 100%; background: var(--black); color: var(--white); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding-bottom: calc(var(--nav-h) + 20px); overflow-y: auto; }
+
+    /* ── BOTTOM NAV ── */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; height: var(--nav-h);
+      background: #071e6e; border-top: 1px solid var(--border);
+      display: flex; z-index: 100;
+    }
+    .nav-btn {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 3px; cursor: pointer; border: none;
+      background: none; color: var(--gray); font-size: 10px; font-weight: 500;
+      padding: 6px 0; transition: color .15s;
+    }
+    .nav-btn.active { color: var(--gold); }
+    .nav-icon { width: 22px; height: 22px; display: block; }
+
+    /* ── PAGES ── */
+    .page { display: none; min-height: calc(100vh - var(--nav-h)); }
+    .page.active { display: block; }
+
+    /* ── STICKY HEADER ── */
+    .sticky-header {
+      position: sticky; top: 0; background: var(--black); z-index: 10;
+      padding: 16px 16px 12px; border-bottom: 1px solid var(--border);
+    }
+    .sticky-header h1 { font-size: 19px; font-weight: 700; color: var(--gold); }
+
+    /* ── HOME ── */
+    .home-top {
+      padding: 24px 16px 20px; text-align: center;
+      background: linear-gradient(180deg, #1565d8 0%, var(--black) 100%);
+    }
+    .event-hero {
+      font-size: 26px; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--white); margin-bottom: 2px; line-height: 1.1;
+    }
+    .hero-vs { font-size: 14px; font-weight: 700; color: var(--gold-dim); margin: 0 5px; vertical-align: middle; }
+    .event-label { font-size: 10px; color: var(--gold-dim); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px; }
+    .event-date { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 22px; }
+    .scoreboard { display: flex; align-items: center; justify-content: center; gap: 0; }
+    .score-side { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .club-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .club-score { font-size: 80px; font-weight: 900; line-height: 1; color: var(--gold); font-variant-numeric: tabular-nums; }
+    .score-divider { font-size: 28px; color: var(--border); padding: 0 8px; align-self: center; margin-bottom: 10px; }
+    .winner-badge {
+      font-size: 10px; padding: 2px 8px; border-radius: 10px;
+      background: #ffffff22; color: var(--gold); font-weight: 600; text-transform: uppercase;
+      border: 1px solid #ffffff44;
+    }
+    .hidden { visibility: hidden; }
+
+    /* Stats row */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 16px 16px; }
+    .stat-box { background: var(--card); border-radius: 12px; padding: 14px 8px; text-align: center; }
+    .stat-val { font-size: 26px; font-weight: 800; color: var(--gold); }
+    .stat-lbl { font-size: 10px; color: var(--gray); margin-top: 2px; }
+
+    /* Progress */
+    .prog-wrap { padding: 0 16px 20px; }
+    .prog-row { display: flex; justify-content: space-between; font-size: 12px; color: var(--gray); margin-bottom: 6px; }
+    .prog-bar { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .prog-fill { height: 100%; background: var(--gold); border-radius: 3px; transition: width .6s ease; }
+
+    /* Section title */
+    .sec-title { font-size: 11px; font-weight: 700; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; padding: 16px 16px 6px; }
+
+    /* ── MATCH CARD ── */
+    .match-card {
+      background: var(--card); margin: 4px 12px; border-radius: 12px;
+      padding: 11px 14px; border-left: 3px solid transparent;
+    }
+    .match-card.played { border-left-color: var(--gold); }
+    .match-card.bye { opacity: .5; }
+    .mc-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .mc-meta { font-size: 11px; color: var(--gray); }
+    .mc-badge { font-size: 10px; background: var(--card2); padding: 2px 8px; border-radius: 10px; color: var(--gray); }
+    .mc-teams { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 6px; }
+    .mc-team { font-size: 12px; font-weight: 500; line-height: 1.3; }
+    .mc-team.right { text-align: right; }
+    .mc-team.tbd { color: var(--gray); font-style: italic; font-weight: 400; }
+    .mc-team.won { color: var(--gold); font-weight: 700; }
+    .mc-score { display: flex; align-items: center; gap: 4px; font-size: 20px; font-weight: 800; white-space: nowrap; }
+    .mc-score .w { color: var(--gold); }
+    .mc-score .l { color: var(--gray); }
+    .mc-score .dash { color: var(--border); font-size: 16px; }
+    .mc-vs { color: var(--gray); font-size: 11px; text-align: center; }
+    .mc-locked { font-size: 10px; color: var(--gold-dim); margin-top: 4px; }
+
+    /* ── TEAMS ── */
+    .tab-row { display: flex; gap: 8px; padding: 14px 16px 10px; }
+    .tab-btn {
+      flex: 1; padding: 9px; border-radius: 8px; border: 1px solid var(--border);
+      background: none; color: var(--gray); font-size: 14px; font-weight: 600; cursor: pointer; transition: all .15s;
+    }
+    .tab-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+    .level-wrap { margin: 3px 12px; }
+    .level-head {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--card); padding: 12px 14px; border-radius: 10px;
+      cursor: pointer; margin-bottom: 2px; user-select: none;
+    }
+    .level-head.open { border-radius: 10px 10px 0 0; margin-bottom: 0; }
+    .lh-title { font-size: 14px; font-weight: 600; }
+    .lh-sub { font-size: 11px; color: var(--gray); margin-top: 2px; }
+    .lh-chev { color: var(--gray); font-size: 12px; transition: transform .2s; }
+    .lh-chev.open { transform: rotate(180deg); }
+    .level-body { display: none; background: #111; border-radius: 0 0 10px 10px; overflow: hidden; }
+    .level-body.open { display: block; }
+    .lb-row {
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      align-items: center; gap: 8px; padding: 10px 14px;
+      border-bottom: 1px solid var(--border); font-size: 12px;
+    }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-num { font-size: 10px; color: var(--gray); grid-column: span 3; margin-bottom: -4px; }
+    .lb-team { font-weight: 500; line-height: 1.3; }
+    .lb-team.right { text-align: right; }
+    .lb-team.tbd { color: var(--gray); font-style: italic; font-weight: 400; }
+    .lb-team.won { color: var(--gold); font-weight: 700; }
+    .lb-score { font-weight: 800; font-size: 15px; color: var(--gold); text-align: center; white-space: nowrap; }
+
+    /* ── SCHEMA ── */
+    .time-group-lbl { padding: 16px 16px 6px; font-size: 13px; font-weight: 700; color: var(--gold); display: flex; align-items: center; gap: 6px; }
+    .schema-grid { padding: 0 12px; }
+    .sg-row {
+      display: grid; grid-template-columns: 36px 1fr auto 1fr 52px;
+      align-items: center; gap: 6px; background: var(--card);
+      padding: 10px 12px; border-radius: 10px; margin-bottom: 4px;
+      font-size: 12px;
+    }
+    .sg-row.played { border-left: 2px solid var(--gold); }
+    .sg-court { font-weight: 700; color: var(--gray); font-size: 11px; text-align: center; }
+    .sg-pach { font-weight: 500; }
+    .sg-vs { color: var(--gray); font-size: 10px; text-align: center; }
+    .sg-wing { font-weight: 500; text-align: right; }
+    .sg-score { font-weight: 800; font-size: 13px; text-align: right; color: var(--gold); }
+    .sg-tbd { color: var(--gray); font-style: italic; font-weight: 400; }
+
+    /* ── SCORE FORM ── */
+    .score-wrap { padding: 16px; }
+    .form-lbl { display: block; font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+    .form-grp { margin-bottom: 16px; }
+    select, input[type=text], input[type=password], input[type=number] {
+      width: 100%; padding: 12px 14px; background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; color: var(--white); font-size: 14px;
+    }
+    select:focus, input:focus { outline: none; border-color: var(--gold); }
+    option { background: #0a2880; }
+
+    .score-opts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .score-opt {
+      padding: 14px 8px; background: var(--card); border: 2px solid var(--border);
+      border-radius: 10px; cursor: pointer; text-align: center; transition: all .15s;
+    }
+    .score-opt.sel { border-color: var(--gold); background: #0a2580; }
+    .score-opt .sd { font-size: 26px; font-weight: 800; color: var(--gold); line-height: 1; }
+    .score-opt .sl { font-size: 11px; color: var(--gray); margin-top: 4px; }
+    .score-opt.wing-win .sl { color: #aaa; }
+
+    .btn-primary {
+      width: 100%; padding: 15px; background: var(--gold); color: var(--black);
+      border: none; border-radius: 12px; font-size: 16px; font-weight: 800; cursor: pointer; transition: opacity .15s;
+    }
+    .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+    .info-box { padding: 20px; text-align: center; color: var(--gray); font-size: 13px; line-height: 1.5; }
+
+    /* ── ADMIN ── */
+    .admin-lock { padding: 40px 20px; text-align: center; }
+    .admin-lock h2 { font-size: 22px; margin-bottom: 8px; }
+    .admin-lock p { color: var(--gray); font-size: 13px; margin-bottom: 24px; }
+
+    .admin-top { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; }
+    .admin-status { font-size: 12px; color: var(--gold); }
+    .btn-sm { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--gray); font-size: 12px; cursor: pointer; }
+
+    .admin-match {
+      background: var(--card); border-radius: 10px; padding: 11px 13px;
+      margin: 3px 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    }
+    .am-info { flex: 1; min-width: 0; }
+    .am-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .am-sub { font-size: 11px; color: var(--gray); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .am-btns { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .btn-edit { background: var(--card2); color: var(--white); border: 1px solid var(--border); }
+    .btn-lock { background: var(--gold); color: var(--black); border: none; font-weight: 700; }
+    .btn-unlk { background: var(--card2); color: var(--gray); border: 1px solid var(--border); }
+
+    /* ── MODAL ── */
+    .modal-bg {
+      position: fixed; inset: 0; background: rgba(0,0,0,.85); z-index: 200;
+      display: flex; align-items: flex-end; backdrop-filter: blur(6px);
+    }
+    .modal {
+      background: #081d78; border-radius: 20px 20px 0 0;
+      padding: 24px 20px 32px; width: 100%; max-height: 85vh; overflow-y: auto;
+    }
+    .modal h3 { font-size: 18px; color: var(--gold); margin-bottom: 16px; }
+    .modal-row { display: flex; gap: 8px; margin-top: 16px; }
+    .btn-cancel { flex: 1; padding: 13px; background: var(--card2); color: var(--white); border: none; border-radius: 10px; font-size: 14px; cursor: pointer; }
+    .btn-save { flex: 2; padding: 13px; background: var(--gold); color: var(--black); border: none; border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: calc(var(--nav-h) + 12px); left: 50%;
+      transform: translateX(-50%) translateY(10px); background: #222; border: 1px solid #444;
+      color: var(--white); padding: 10px 20px; border-radius: 20px; font-size: 13px;
+      opacity: 0; transition: all .25s; z-index: 500; white-space: nowrap; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── SETTINGS ── */
+    .settings-wrap { padding: 16px; }
+    .settings-wrap h3 { font-size: 14px; color: var(--gray); text-transform: uppercase; letter-spacing: .5px; margin: 16px 0 8px; }
+    .settings-wrap h3:first-child { margin-top: 0; }
+    .btn-danger { width: 100%; padding: 13px; background: #1a0030; color: #f87171; border: 1px solid #6a1040; border-radius: 10px; font-size: 14px; cursor: pointer; margin-top: 6px; }
+
+    /* ── FIREBASE LOADING ── */
+    .fb-loading {
+      position: fixed; inset: 0; background: var(--black); z-index: 1000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+    }
+    .fb-spin {
+      width: 36px; height: 36px; border: 3px solid var(--border);
+      border-top-color: var(--gold); border-radius: 50%; animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fb-lbl { font-size: 13px; color: var(--gray); }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<div id="fb-loading" class="fb-loading">
+  <div class="fb-spin"></div>
+  <div class="fb-lbl">Verbinden met live data...</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="home-top">
+    <div class="event-hero">PACHANGA <span class="hero-vs">VS</span> WINGFIELD</div>
+    <div class="event-label">Malines Group Padel Cup</div>
+    <div class="event-date">Zaterdag 9 mei 2026 · Pachanga Padel, Muizen</div>
+    <div class="scoreboard">
+      <div class="score-side">
+        <div class="club-label">Pachanga</div>
+        <div class="club-score" id="sc-pach">0</div>
+        <div class="winner-badge" id="wb-pach" style="visibility:hidden">Leider</div>
+      </div>
+      <div class="score-divider">:</div>
+      <div class="score-side">
+        <div class="club-label">Wingfield</div>
+        <div class="club-score" id="sc-wing">0</div>
+        <div class="winner-badge" id="wb-wing" style="visibility:hidden">Leider</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="prog-wrap" style="padding-top:20px">
+    <div class="prog-row">
+      <span>Gespeeld</span>
+      <span id="prog-label">0 / 0 wedstrijden</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-val" id="st-pach">0</div><div class="stat-lbl">Pachanga</div></div>
+    <div class="stat-box"><div class="stat-val" id="st-played">0</div><div class="stat-lbl">Gespeeld</div></div>
+    <div class="stat-box"><div class="stat-val" id="st-wing">0</div><div class="stat-lbl">Wingfield</div></div>
+  </div>
+
+  <div id="home-recent"></div>
+  <div id="home-upcoming"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: DEELNEMERS
+══════════════════════════════════════════ -->
+<div class="page" id="page-teams">
+  <div class="sticky-header"><h1>Deelnemers</h1></div>
+  <div class="tab-row">
+    <button class="tab-btn active" id="tab-open" onclick="setTeamTab('OPEN')">Open</button>
+    <button class="tab-btn" id="tab-dames" onclick="setTeamTab('DAMES')">Dames</button>
+  </div>
+  <div id="teams-open"></div>
+  <div id="teams-dames" style="display:none"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: SCHEMA
+══════════════════════════════════════════ -->
+<div class="page" id="page-schema">
+  <div class="sticky-header"><h1>Wedstrijdschema</h1></div>
+  <div id="schema-body"></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: SCORE
+══════════════════════════════════════════ -->
+<div class="page" id="page-score">
+  <div class="sticky-header"><h1>Score invoeren</h1></div>
+  <div class="score-wrap">
+    <div class="form-grp">
+      <label class="form-lbl">Kies wedstrijd</label>
+      <select id="sel-match" onchange="onMatchPick()">
+        <option value="">Selecteer...</option>
+      </select>
+    </div>
+    <div id="score-preview" style="display:none">
+      <div class="match-card" style="margin:0 0 16px 0">
+        <div id="score-preview-inner"></div>
+      </div>
+    </div>
+    <div id="score-opts-wrap" style="display:none">
+      <div class="form-grp">
+        <label class="form-lbl">Uitslag (sets Pachanga - Wingfield)</label>
+        <div class="score-opts">
+          <div class="score-opt" data-s="2-0" onclick="pickScore(this)">
+            <div class="sd">2 - 0</div><div class="sl">Pachanga wint</div>
+          </div>
+          <div class="score-opt" data-s="2-1" onclick="pickScore(this)">
+            <div class="sd">2 - 1</div><div class="sl">Pachanga wint</div>
+          </div>
+          <div class="score-opt wing-win" data-s="1-2" onclick="pickScore(this)">
+            <div class="sd">1 - 2</div><div class="sl">Wingfield wint</div>
+          </div>
+          <div class="score-opt wing-win" data-s="0-2" onclick="pickScore(this)">
+            <div class="sd">0 - 2</div><div class="sl">Wingfield wint</div>
+          </div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-submit" onclick="doSubmit()" disabled>Score opslaan</button>
+    </div>
+    <div id="score-msg" class="info-box" style="display:none"></div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     PAGE: ADMIN
+══════════════════════════════════════════ -->
+<div class="page" id="page-admin">
+  <div class="sticky-header"><h1>Admin</h1></div>
+
+  <div id="admin-login">
+    <div class="admin-lock">
+      <h2>Admin toegang</h2>
+      <p>Voer het wachtwoord in om wedstrijden te beheren en scores te vergrendelen.</p>
+      <div class="form-grp">
+        <input type="password" id="pw-input" placeholder="Wachtwoord" onkeyup="if(event.key==='Enter')tryLogin()">
+      </div>
+      <button class="btn-primary" onclick="tryLogin()">Inloggen</button>
+    </div>
+  </div>
+
+  <div id="admin-panel" style="display:none">
+    <div class="admin-top">
+      <div class="tab-row" style="padding:0; flex:1; gap:6px">
+        <button class="tab-btn active" id="atab-wed" onclick="setAdminTab('wed')">Wedstrijden</button>
+        <button class="tab-btn" id="atab-set" onclick="setAdminTab('set')">Instellingen</button>
+      </div>
+      <button class="btn-sm" style="margin-left:10px" onclick="doLogout()">Uitloggen</button>
+    </div>
+
+    <div id="admin-wed">
+      <div id="admin-list"></div>
+    </div>
+
+    <div id="admin-set" style="display:none">
+      <div class="settings-wrap">
+        <h3>Admin wachtwoord</h3>
+        <div class="form-grp">
+          <input type="password" id="new-pw" placeholder="Nieuw wachtwoord (min. 4 tekens)">
+        </div>
+        <button class="btn-primary" onclick="savePw()">Wachtwoord opslaan</button>
+
+        <h3 style="margin-top:28px">Data exporteren</h3>
+        <p style="font-size:12px;color:var(--gray);margin-bottom:8px">Kopieer de score-data om te importeren op een ander toestel.</p>
+        <button class="btn-primary" style="background:var(--card2);color:var(--white);border:1px solid var(--border)" onclick="exportData()">Exporteer JSON naar klembord</button>
+
+        <h3 style="margin-top:28px">Data importeren</h3>
+        <div class="form-grp">
+          <input type="text" id="import-json" placeholder="Plak geexporteerde JSON hier...">
+        </div>
+        <button class="btn-primary" style="background:var(--card2);color:var(--white);border:1px solid var(--border)" onclick="importData()">Importeer JSON</button>
+
+        <h3 style="margin-top:28px">Reset</h3>
+        <button class="btn-danger" onclick="resetScores()">Alle scores verwijderen</button>
+        <button class="btn-danger" style="margin-top:10px" onclick="resetToSeed()">Schema herladen vanuit standaard</button>
+        <p style="font-size:11px;color:var(--gray);margin-top:6px">Overschrijft het volledige schema (tijden, velden, teams) met de standaard SEED. Scores gaan verloren.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     BOTTOM NAV
+══════════════════════════════════════════ -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="nav('home')">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="nav-btn" onclick="nav('teams')">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Deelnemers
+  </button>
+  <button class="nav-btn" onclick="nav('schema')">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Schema
+  </button>
+  <button class="nav-btn" onclick="nav('score')">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+    Score
+  </button>
+  <button class="nav-btn" onclick="nav('admin')">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    Admin
+  </button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     EDIT MODAL
+══════════════════════════════════════════ -->
+<div class="modal-bg" id="edit-modal" style="display:none" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <h3>Wedstrijd bewerken</h3>
+    <input type="hidden" id="em-id">
+
+    <div class="form-grp">
+      <label class="form-lbl">Tijdstip</label>
+      <input type="text" id="em-time" placeholder="bijv. 10:00">
+    </div>
+    <div class="form-grp">
+      <label class="form-lbl">Veld (1-8)</label>
+      <input type="number" id="em-court" min="1" max="8">
+    </div>
+
+    <label class="form-lbl" style="display:block;margin-bottom:6px">Pachanga duo</label>
+    <div class="form-grp" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      <input type="text" id="em-p1" placeholder="Speler 1">
+      <input type="text" id="em-p2" placeholder="Speler 2">
+    </div>
+
+    <label class="form-lbl" style="display:block;margin-bottom:6px">Wingfield duo</label>
+    <div class="form-grp" style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+      <input type="text" id="em-w1" placeholder="Speler 1">
+      <input type="text" id="em-w2" placeholder="Speler 2">
+    </div>
+
+    <div class="form-grp">
+      <label class="form-lbl">Score overschrijven</label>
+      <select id="em-score">
+        <option value="">Geen score</option>
+        <option value="2-0">2-0 (Pachanga wint)</option>
+        <option value="2-1">2-1 (Pachanga wint)</option>
+        <option value="1-2">1-2 (Wingfield wint)</option>
+        <option value="0-2">0-2 (Wingfield wint)</option>
+      </select>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 0 12px">
+      <input type="checkbox" id="em-locked" style="width:auto;accent-color:var(--gold)">
+      <label style="font-size:13px;cursor:pointer" for="em-locked">Score vergrendelen (niet meer aanpasbaar)</label>
+    </div>
+
+    <div class="modal-row">
+      <button class="btn-cancel" onclick="closeModal()">Annuleren</button>
+      <button class="btn-save" onclick="saveEdit()">Opslaan</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+// ═══════════════════════════════════════════
+// ═══════════════════════════════════════════
+// SVG ICON HELPERS (geen emoji's)
+// ═══════════════════════════════════════════
+const ICO = {
+  clock: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+  lock:  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+  lockSm:`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+};
+
+// MATCH DATA (30 wedstrijden)
+// Velden: id, cat, lvl, num, time, court,
+//         pach (array|null), wing (array|null),
+//         sp (sets pach|null), sw (sets wing|null), locked
+// ═══════════════════════════════════════════
+const SEED = [
+  // ── 13:00 — Veld 1 t/m 8 ────────────────────────
+  {id:'hp10-2', cat:'OPEN', lvl:'P1000-1200', num:2, time:'13:00', court:1,
+   pach:null, wing:['Jasper Pauwels','Gerrit Callaerts'], sp:null,sw:null,locked:false},
+  {id:'dp1-1',  cat:'DAMES', lvl:'P100-150',  num:1, time:'13:00', court:2,
+   pach:['Elise Heivers','Lysbet Cammaer'], wing:['Kathleen Kiebooms','Veronique Verhoeven'], sp:null,sw:null,locked:false},
+  {id:'hp8-1',  cat:'OPEN', lvl:'P800-900',   num:1, time:'13:00', court:3,
+   pach:['Yannick Van Looy','Goswin Weemaes'], wing:['Bert Bracke','Verrassingspartner'], sp:null,sw:null,locked:false},
+  {id:'hp8-2',  cat:'OPEN', lvl:'P800-900',   num:2, time:'13:00', court:4,
+   pach:['Brecht Deriemaeker','Tom Van Heffen'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp6-1',  cat:'OPEN', lvl:'P600-700',   num:1, time:'13:00', court:5,
+   pach:['Philippe Naze','Kris Van Eeckhout'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp6-2',  cat:'OPEN', lvl:'P600-700',   num:2, time:'13:00', court:6,
+   pach:['Marnix','Luc Roobrouck'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp6-3',  cat:'OPEN', lvl:'P600-700',   num:3, time:'13:00', court:7,
+   pach:['Jeroen De Becker','Dirk Van Velthoven'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp6-4',  cat:'OPEN', lvl:'P600-700',   num:4, time:'13:00', court:8,
+   pach:['Olivier Becart','Michelle Melaerts'], wing:null, sp:null,sw:null,locked:false},
+
+  // ── 14:30 — Veld 1 t/m 8 ────────────────────────
+  {id:'hp4-1',  cat:'OPEN',  lvl:'P400-500',  num:1, time:'14:30', court:1,
+   pach:['Stephan Horckmans','Bart Houdenaert'], wing:['Maarten Pierle','Andreas Van Deyck'], sp:null,sw:null,locked:false},
+  {id:'hp2-2',  cat:'OPEN',  lvl:'P200-300',  num:2, time:'14:30', court:2,
+   pach:['Stephane Van Eetvelde','Gunther Dietens'], wing:['Sam Vanherp','Gregory Crucifix'], sp:null,sw:null,locked:false},
+  {id:'hp10-3', cat:'OPEN',  lvl:'P1000-1200', num:3, time:'14:30', court:3,
+   pach:null, wing:['Joran Van Ranst','Adriaan Van Wunsel'], sp:null,sw:null,locked:false},
+  {id:'hp2-7',  cat:'OPEN',  lvl:'P200-300',  num:7, time:'14:30', court:4,
+   pach:['Erwin De Leersnyder','Geert Gellaerts'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp2-5',  cat:'OPEN',  lvl:'P200-300',  num:5, time:'14:30', court:5,
+   pach:['Griet Hofmans','Liesbeth Backx'], wing:['Bart Ceulemans','Yannick Perez'], sp:null,sw:null,locked:false},
+  {id:'hp2-8',  cat:'OPEN',  lvl:'P200-300',  num:8, time:'14:30', court:6,
+   pach:['Bart Campi','Els Lamote'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp1-2',  cat:'DAMES', lvl:'P100-150',  num:2, time:'14:30', court:7,
+   pach:['Ruth Ockerman','Marleen De Mot'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp2-1',  cat:'DAMES', lvl:'P200-300',  num:1, time:'14:30', court:8,
+   pach:['Vicky Van Caesbroeck','Laura Goossens'], wing:null, sp:null,sw:null,locked:false},
+
+  // ── 16:00 — Veld 1 t/m 8 ────────────────────────
+  {id:'hp4-2',  cat:'OPEN',  lvl:'P400-500',  num:2, time:'16:00', court:1,
+   pach:['Michiel Schuurmans','Jonathan Haesen'], wing:['Marie Noyen','Jill Michiels'], sp:null,sw:null,locked:false},
+  {id:'hp2-3',  cat:'OPEN',  lvl:'P200-300',  num:3, time:'16:00', court:2,
+   pach:['Erwin Vandenbrande','Mario Dominguez'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp4-3',  cat:'OPEN',  lvl:'P400-500',  num:3, time:'16:00', court:3,
+   pach:['Heidi Cloetens','Michelle Melaerts'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp2-2',  cat:'DAMES', lvl:'P200-300',  num:2, time:'16:00', court:4,
+   pach:['Hilde Stevens','Mieke De Wit'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp2-6',  cat:'OPEN',  lvl:'P200-300',  num:6, time:'16:00', court:5,
+   pach:['Valeria Bodnar','Victor Voet'], wing:['Eric Van der Goten','Roger D'], sp:null,sw:null,locked:false},
+  {id:'dp2-3',  cat:'DAMES', lvl:'P200-300',  num:3, time:'16:00', court:6,
+   pach:['Katrien Geets','Kathleen Deketelaere'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp2-4',  cat:'DAMES', lvl:'P200-300',  num:4, time:'16:00', court:7,
+   pach:['Sabine Boelens','Ann Coolen'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp2-5',  cat:'DAMES', lvl:'P200-300',  num:5, time:'16:00', court:8,
+   pach:['Annemie Van Hemelrijck','Valerie Hofmans'], wing:null, sp:null,sw:null,locked:false},
+
+  // ── 17:30 — Veld 1 t/m 6 ────────────────────────
+  {id:'hp10-1', cat:'OPEN',  lvl:'P1000-1200', num:1, time:'17:30', court:1,
+   pach:['Bram De Nyn','Matthias De Troye'], wing:['Michael Van den Broeck','Jasper Ramaut'], sp:null,sw:null,locked:false},
+  {id:'hp2-4',  cat:'OPEN',  lvl:'P200-300',  num:4, time:'17:30', court:2,
+   pach:['Hilde Stevens','Pieter Van Vlasselaer'], wing:['Bart Wils','Sebastien Luyckx'], sp:null,sw:null,locked:false},
+  {id:'dp4-1',  cat:'DAMES', lvl:'P400-500',  num:1, time:'17:30', court:3,
+   pach:['Hanne Boey','Tess De Schepper'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp4-2',  cat:'DAMES', lvl:'P400-500',  num:2, time:'17:30', court:4,
+   pach:['Marianne Schuurmans','Inge Vermeylen'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp4-3',  cat:'DAMES', lvl:'P400-500',  num:3, time:'17:30', court:5,
+   pach:['Leen dw','Christelle Op De Beeck'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp8-1',  cat:'DAMES', lvl:'P800-1000', num:1, time:'17:30', court:6,
+   pach:['Marianne Schuurmans','Justine'], wing:null, sp:null,sw:null,locked:false},
+  {id:'hp6-5',  cat:'OPEN',  lvl:'P600-700',  num:5, time:'17:30', court:7,
+   pach:['James Verstreken','Joel Vertommen'], wing:null, sp:null,sw:null,locked:false},
+  {id:'dp4-4',  cat:'DAMES', lvl:'P400-500',  num:4, time:'17:30', court:8,
+   pach:['Tine Verstraeten','Astrid Geens'], wing:null, sp:null,sw:null,locked:false},
+
+  // ── 18:30 ────────────────────────
+  {id:'hp2-1',  cat:'OPEN',  lvl:'P200-300',  num:1, time:'18:30', court:1,
+   pach:['Ibbor','Tom Van Ingelgem'], wing:['Elliot Coone','Adriaan Jacobs'], sp:null,sw:null,locked:false},
+];
+
+// ═══════════════════════════════════════════
+// FIREBASE CONFIG
+// Stap 1: ga naar https://console.firebase.google.com
+// Stap 2: maak project "mgpc-2026" aan (Spark = gratis)
+// Stap 3: voeg web-app toe → kopieer config → plak hieronder
+// Stap 4: activeer Realtime Database (testmodus)
+// ═══════════════════════════════════════════
+const FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyDrlCpuO2a5yzSUB1JoZ96KSaYjCQniu48",
+  authDomain:        "mgpc-2026.firebaseapp.com",
+  databaseURL:       "https://mgpc-2026-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId:         "mgpc-2026",
+  storageBucket:     "mgpc-2026.firebasestorage.app",
+  messagingSenderId: "78506921375",
+  appId:             "1:78506921375:web:3a4b325a3981a9195901aa"
+};
+const FB_PATH    = 'mgpc2026';
+const DEFAULT_PW = 'pachanga2026';
+
+let fbRef       = null;
+let S           = { matches: [], pw: DEFAULT_PW };
+let adminActive = false;
+let chosenScore = null;
+
+// Firebase slaat geen null-waarden op → undefined na laden.
+// Deze functie zet alles terug naar de verwachte standaardwaarden.
+function normalizeMatches(matches) {
+  return matches.map(m => ({
+    ...m,
+    pach:   m.pach   != null ? m.pach   : null,
+    wing:   m.wing   != null ? m.wing   : null,
+    sp:     m.sp     != null ? m.sp     : null,
+    sw:     m.sw     != null ? m.sw     : null,
+    locked: m.locked != null ? !!m.locked : false,
+  }));
+}
+
+function initFirebase() {
+  const configured = FIREBASE_CONFIG.apiKey !== 'VERVANG_MIJ';
+  if (!configured) {
+    // Nog geen Firebase config: gebruik localStorage als fallback
+    const raw = localStorage.getItem('mgpc2026_local');
+    if (raw) { try { Object.assign(S, JSON.parse(raw)); } catch(_) {} }
+    if (!S.matches || !S.matches.length) {
+      S.matches = JSON.parse(JSON.stringify(SEED));
+      save();
+    }
+    document.getElementById('fb-loading').style.display = 'none';
+    renderHome();
+    return;
+  }
+  try {
+    firebase.initializeApp(FIREBASE_CONFIG);
+    fbRef = firebase.database().ref(FB_PATH);
+    // Real-time listener: vuurt af bij elke wijziging op elk toestel
+    fbRef.on('value', snapshot => {
+      const data = snapshot.val();
+      if (data && data.matches && data.matches.length) {
+        S.matches = normalizeMatches(data.matches);
+        S.pw = data.pw || DEFAULT_PW;
+      } else {
+        // Eerste keer: seed de database met de standaard matchups
+        S.matches = JSON.parse(JSON.stringify(SEED));
+        S.pw = DEFAULT_PW;
+        fbRef.set(S);
+      }
+      document.getElementById('fb-loading').style.display = 'none';
+      renderHome();
+      if (adminActive) renderAdminList();
+    }, err => {
+      console.error('Firebase fout:', err);
+      document.getElementById('fb-loading').style.display = 'none';
+      if (!S.matches.length) S.matches = JSON.parse(JSON.stringify(SEED));
+      renderHome();
+    });
+  } catch(e) {
+    console.error('Firebase init mislukt:', e);
+    document.getElementById('fb-loading').style.display = 'none';
+    if (!S.matches.length) S.matches = JSON.parse(JSON.stringify(SEED));
+    renderHome();
+  }
+}
+
+function save() {
+  if (fbRef) {
+    fbRef.set({ matches: S.matches, pw: S.pw });
+  } else {
+    localStorage.setItem('mgpc2026_local', JSON.stringify(S));
+  }
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════
+const PAGES = ['home','teams','schema','score','admin'];
+
+function nav(id) {
+  PAGES.forEach((p,i) => {
+    document.getElementById('page-'+p).classList.toggle('active', p===id);
+    document.querySelectorAll('.nav-btn')[i].classList.toggle('active', p===id);
+  });
+  if (id==='home')   renderHome();
+  if (id==='teams')  renderTeams();
+  if (id==='schema') renderSchema();
+  if (id==='score')  renderScore();
+  if (id==='admin' && adminActive) renderAdminList();
+}
+
+// ═══════════════════════════════════════════
+// HOME
+// ═══════════════════════════════════════════
+function calcScores() {
+  let p=0,w=0;
+  S.matches.forEach(m => {
+    if (m.sp!==null && m.sw!==null) {
+      if(m.sp>m.sw) p++; else if(m.sw>m.sp) w++;
+    }
+  });
+  return {p,w};
+}
+
+function renderHome() {
+  const {p,w} = calcScores();
+  const playable = S.matches.filter(m=>m.pach&&m.wing).length;
+  const played   = S.matches.filter(m=>m.sp!==null).length;
+
+  document.getElementById('sc-pach').textContent = p;
+  document.getElementById('sc-wing').textContent = w;
+  document.getElementById('st-pach').textContent = p;
+  document.getElementById('st-wing').textContent = w;
+  document.getElementById('st-played').textContent = played;
+  document.getElementById('prog-label').textContent = `${played} / ${playable} wedstrijden`;
+  document.getElementById('prog-fill').style.width = playable ? `${played/playable*100}%` : '0%';
+
+  // Leader badge
+  const wp = document.getElementById('wb-pach');
+  const ww = document.getElementById('wb-wing');
+  if(p===0&&w===0){wp.style.visibility='hidden';ww.style.visibility='hidden';}
+  else if(p===w){wp.style.visibility='hidden';ww.style.visibility='hidden';}
+  else if(p>w){wp.style.visibility='visible';ww.style.visibility='hidden';}
+  else{wp.style.visibility='hidden';ww.style.visibility='visible';}
+
+  // Recent
+  const done = S.matches.filter(m=>m.sp!==null).slice(-4).reverse();
+  document.getElementById('home-recent').innerHTML = done.length
+    ? `<div class="sec-title">Recente uitslagen</div>${done.map(mcHtml).join('')}`
+    : '';
+
+  // Upcoming (with both teams, no score)
+  const next = S.matches.filter(m=>m.pach&&m.wing&&m.sp===null).slice(0,4);
+  document.getElementById('home-upcoming').innerHTML = next.length
+    ? `<div class="sec-title">Eerstvolgende wedstrijden</div>${next.map(mcHtml).join('')}`
+    : `<div class="info-box">Alle geplande wedstrijden zijn gespeeld!</div>`;
+}
+
+function mcHtml(m) {
+  const done = m.sp!==null&&m.sw!==null;
+  const pWon = done && m.sp>m.sw;
+  const wWon = done && m.sw>m.sp;
+  const pName = m.pach ? m.pach.join(' / ') : '?';
+  const wName = m.wing ? m.wing.join(' / ') : '?';
+  return `<div class="match-card ${done?'played':''} ${(!m.pach||!m.wing)?'bye':''}">
+    <div class="mc-top">
+      <span class="mc-meta">${m.time} &nbsp;·&nbsp; Veld ${m.court}</span>
+      <span class="mc-badge">${m.cat} ${m.lvl}</span>
+    </div>
+    <div class="mc-teams">
+      <div class="mc-team ${!m.pach?'tbd':''} ${pWon?'won':''}">${pName}</div>
+      ${done
+        ? `<div class="mc-score"><span class="${pWon?'w':'l'}">${m.sp}</span><span class="dash">-</span><span class="${wWon?'w':'l'}">${m.sw}</span></div>`
+        : `<div class="mc-vs">vs</div>`
+      }
+      <div class="mc-team right ${!m.wing?'tbd':''} ${wWon?'won':''}">${wName}</div>
+    </div>
+    ${m.locked?`<div class="mc-locked">${ICO.lockSm} Vergrendeld</div>`:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════
+// TEAMS
+// ═══════════════════════════════════════════
+let teamTab = 'OPEN';
+function setTeamTab(t) {
+  teamTab = t;
+  document.getElementById('tab-open').classList.toggle('active', t==='OPEN');
+  document.getElementById('tab-dames').classList.toggle('active', t==='DAMES');
+  document.getElementById('teams-open').style.display  = t==='OPEN'  ?'block':'none';
+  document.getElementById('teams-dames').style.display = t==='DAMES' ?'block':'none';
+}
+
+function renderTeams() {
+  ['OPEN','DAMES'].forEach(cat => {
+    const matches = S.matches.filter(m=>m.cat===cat);
+    const levels  = [...new Set(matches.map(m=>m.lvl))].sort((a,b)=>parseInt(a.slice(1))-parseInt(b.slice(1)));
+    const container = document.getElementById('teams-'+cat.toLowerCase());
+    container.innerHTML = levels.map(lvl => {
+      const ms = matches.filter(m=>m.lvl===lvl).sort((a,b)=>a.num-b.num);
+      const mu = ms.filter(m=>m.pach&&m.wing).length;
+      return `<div class="level-wrap">
+        <div class="level-head" onclick="toggleLvl(this)">
+          <div>
+            <div class="lh-title">${cat} ${lvl}</div>
+            <div class="lh-sub">${ms.length} duo's &nbsp;·&nbsp; ${mu} match-up${mu!==1?'s':''}</div>
+          </div>
+          <div class="lh-chev">▼</div>
+        </div>
+        <div class="level-body">
+          ${ms.map(m=>{
+            const done=m.sp!==null&&m.sw!==null;
+            const pW=done&&m.sp>m.sw, wW=done&&m.sw>m.sp;
+            return `<div class="lb-row">
+              <div class="lb-num">#${m.num}</div>
+              <div class="lb-team ${!m.pach?'tbd':''} ${pW?'won':''}">${m.pach?m.pach.join(' / '):'Pachanga: ?'}</div>
+              <div class="lb-score">${done?`${m.sp}-${m.sw}`:''}</div>
+              <div class="lb-team right ${!m.wing?'tbd':''} ${wW?'won':''}">${m.wing?m.wing.join(' / '):'Wingfield: ?'}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+    }).join('');
+  });
+}
+
+function toggleLvl(h) {
+  const b=h.nextElementSibling, c=h.querySelector('.lh-chev');
+  const o=b.classList.toggle('open');
+  h.classList.toggle('open',o); c.classList.toggle('open',o);
+}
+
+// ═══════════════════════════════════════════
+// SCHEMA
+// ═══════════════════════════════════════════
+function renderSchema() {
+  const times = [...new Set(S.matches.map(m=>m.time))].sort();
+  document.getElementById('schema-body').innerHTML = times.map(t => {
+    const ms = S.matches.filter(m=>m.time===t).sort((a,b)=>a.court-b.court);
+    return `<div class="time-group-lbl">${ICO.clock} ${t}</div>
+    <div class="schema-grid">
+      ${ms.map(m=>{
+        const done=m.sp!==null&&m.sw!==null;
+        const pW=done&&m.sp>m.sw, wW=done&&m.sw>m.sp;
+        return `<div class="sg-row ${done?'played':''}">
+          <div class="sg-court">V${m.court}</div>
+          <div class="sg-pach ${!m.pach?'sg-tbd':''} ${pW?'won':''}">${m.pach?m.pach[0]+'<br>'+m.pach[1]:'Pachanga: ?'}</div>
+          <div class="sg-vs">${done?'':'vs'}</div>
+          <div class="sg-wing ${!m.wing?'sg-tbd':''} ${wW?'won':''}">${m.wing?m.wing[0]+'<br>'+m.wing[1]:'Wingfield: ?'}</div>
+          <div class="sg-score">${done?`${m.sp}-${m.sw}`:''} ${m.locked?ICO.lockSm:''}</div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════
+// SCORE ENTRY
+// ═══════════════════════════════════════════
+const TOURNAMENT_DATE = new Date('2026-05-09T00:00:00');
+function scoreUnlocked() {
+  return adminActive || new Date() >= TOURNAMENT_DATE;
+}
+
+function renderScore() {
+  const wrap = document.querySelector('.score-wrap');
+  // Blokkeer score-invoer vóór toernooidag (tenzij admin)
+  const locked = !scoreUnlocked();
+  const lockBanner = document.getElementById('score-lock-banner');
+  if (locked) {
+    if (!lockBanner) {
+      const b = document.createElement('div');
+      b.id = 'score-lock-banner';
+      b.style.cssText = 'background:#071e6e;border:1px solid var(--border);border-radius:10px;padding:20px 16px;text-align:center;margin:16px 0';
+      b.innerHTML = `<div style="margin-bottom:10px;color:var(--gray)">${ICO.lock}</div><div style="font-weight:700;font-size:15px;margin-bottom:4px">Score-invoer opent op 9 mei</div><div style="font-size:12px;color:var(--gray)">Scores kunnen pas ingegeven worden op de dag van het toernooi.<br>Admins kunnen al vroeger inloggen via het Admin tabblad.</div>`;
+      wrap.insertBefore(b, wrap.firstChild);
+    }
+    document.getElementById('sel-match').style.display = 'none';
+    document.getElementById('score-preview').style.display = 'none';
+    document.getElementById('score-opts-wrap').style.display = 'none';
+    document.getElementById('score-msg').style.display = 'none';
+    document.getElementById('btn-submit').style.display = 'none';
+    return;
+  }
+  // Verwijder lock banner als aanwezig
+  if (lockBanner) lockBanner.remove();
+  document.getElementById('sel-match').style.display = '';
+  document.getElementById('btn-submit').style.display = '';
+
+  const playable = S.matches.filter(m=>m.pach&&m.wing);
+  const sel = document.getElementById('sel-match');
+  sel.innerHTML = '<option value="">Selecteer een wedstrijd...</option>' +
+    playable.map(m => {
+      const label = `${m.time} – V${m.court} – ${m.cat} ${m.lvl}: ${m.pach.join('/')} vs ${m.wing.join('/')}`;
+      return `<option value="${m.id}">${label}</option>`;
+    }).join('');
+  chosenScore = null;
+  document.querySelectorAll('.score-opt').forEach(o=>o.classList.remove('sel'));
+  document.getElementById('btn-submit').disabled = true;
+  document.getElementById('score-preview').style.display = 'none';
+  document.getElementById('score-opts-wrap').style.display = 'none';
+  document.getElementById('score-msg').style.display = 'none';
+}
+
+function onMatchPick() {
+  const id = document.getElementById('sel-match').value;
+  const prev = document.getElementById('score-preview');
+  const opts = document.getElementById('score-opts-wrap');
+  const msg  = document.getElementById('score-msg');
+  chosenScore = null;
+  document.querySelectorAll('.score-opt').forEach(o=>o.classList.remove('sel'));
+  document.getElementById('btn-submit').disabled = true;
+  prev.style.display='none'; opts.style.display='none'; msg.style.display='none';
+  if(!id) return;
+  const m = S.matches.find(x=>x.id===id);
+  if(!m) return;
+  prev.style.display='block';
+  document.getElementById('score-preview-inner').innerHTML = `
+    <div class="mc-top">
+      <span class="mc-meta">${m.time} · Veld ${m.court}</span>
+      <span class="mc-badge">${m.cat} ${m.lvl}</span>
+    </div>
+    <div style="font-size:13px;margin-top:6px">
+      <strong>${m.pach?m.pach.join(' / '):'?'}</strong>
+      <span style="color:var(--gray);margin:0 6px">vs</span>
+      <strong>${m.wing?m.wing.join(' / '):'?'}</strong>
+    </div>
+    ${m.sp!==null?`<div style="font-size:11px;color:var(--gray);margin-top:6px">Huidige score: ${m.sp}-${m.sw}</div>`:''}
+  `;
+  if(m.locked) {
+    msg.style.display='block';
+    msg.innerHTML=`${ICO.lockSm} Deze wedstrijd is vergrendeld door de admin.`;
+  } else {
+    opts.style.display='block';
+  }
+}
+
+function pickScore(el) {
+  document.querySelectorAll('.score-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  chosenScore = el.dataset.s;
+  document.getElementById('btn-submit').disabled = false;
+}
+
+function doSubmit() {
+  if(!scoreUnlocked()) return;
+  const id = document.getElementById('sel-match').value;
+  if(!id||!chosenScore) return;
+  const m = S.matches.find(x=>x.id===id);
+  if(!m||m.locked) return;
+  const [sp,sw] = chosenScore.split('-').map(Number);
+  m.sp=sp; m.sw=sw;
+  save();
+  toast('Score opgeslagen: '+sp+'-'+sw+' ✓');
+  renderScore();
+  renderHome();
+}
+
+// ═══════════════════════════════════════════
+// ADMIN
+// ═══════════════════════════════════════════
+function tryLogin() {
+  const v = document.getElementById('pw-input').value;
+  if(v===S.pw) {
+    adminActive=true;
+    document.getElementById('admin-login').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    renderAdminList();
+    renderScore(); // herlaad score-pagina (lock verdwijnt voor admin)
+  } else {
+    toast('Onjuist wachtwoord');
+    document.getElementById('pw-input').value='';
+  }
+}
+function doLogout() {
+  adminActive=false;
+  document.getElementById('admin-login').style.display='block';
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('pw-input').value='';
+  renderScore(); // herlaad score-pagina (lock verschijnt terug)
+}
+function setAdminTab(t) {
+  document.getElementById('admin-wed').style.display = t==='wed'?'block':'none';
+  document.getElementById('admin-set').style.display = t==='set'?'block':'none';
+  document.getElementById('atab-wed').classList.toggle('active',t==='wed');
+  document.getElementById('atab-set').classList.toggle('active',t==='set');
+}
+
+function renderAdminList() {
+  const times = [...new Set(S.matches.map(m=>m.time))].sort();
+  document.getElementById('admin-list').innerHTML = times.map(t=>{
+    const ms = S.matches.filter(m=>m.time===t).sort((a,b)=>a.court-b.court);
+    return `<div class="sec-title">${t}</div>
+    ${ms.map(m=>`
+      <div class="admin-match">
+        <div class="am-info">
+          <div class="am-title">V${m.court} &nbsp;·&nbsp; ${m.cat} ${m.lvl} #${m.num}</div>
+          <div class="am-sub">${m.pach?m.pach.join(' / '):'Pach: ?'} vs ${m.wing?m.wing.join(' / '):'Wing: ?'}${m.sp!==null?' · '+m.sp+'-'+m.sw:''} ${m.locked?'· '+ICO.lockSm:''}</div>
+        </div>
+        <div class="am-btns">
+          <button class="btn-sm btn-edit" onclick="openEdit('${m.id}')">Bewerk</button>
+          <button class="btn-sm ${m.locked?'btn-unlk':'btn-lock'}" onclick="toggleLock('${m.id}')">${m.locked?'Ontgrendel':'Vergrendel'}</button>
+        </div>
+      </div>
+    `).join('')}`;
+  }).join('');
+}
+
+function toggleLock(id) {
+  const m = S.matches.find(x=>x.id===id);
+  if(!m) return;
+  m.locked = !m.locked;
+  save(); renderAdminList();
+  toast(m.locked?'Vergrendeld':'Ontgrendeld');
+}
+
+function openEdit(id) {
+  const m = S.matches.find(x=>x.id===id);
+  if(!m) return;
+  document.getElementById('em-id').value    = id;
+  document.getElementById('em-time').value  = m.time;
+  document.getElementById('em-court').value = m.court;
+  document.getElementById('em-p1').value    = m.pach?m.pach[0]:'';
+  document.getElementById('em-p2').value    = m.pach?m.pach[1]:'';
+  document.getElementById('em-w1').value    = m.wing?m.wing[0]:'';
+  document.getElementById('em-w2').value    = m.wing?m.wing[1]:'';
+  document.getElementById('em-score').value = m.sp!==null?`${m.sp}-${m.sw}`:'';
+  document.getElementById('em-locked').checked = m.locked;
+  document.getElementById('edit-modal').style.display='flex';
+}
+
+function closeModal(e) {
+  if(!e||e.target===document.getElementById('edit-modal'))
+    document.getElementById('edit-modal').style.display='none';
+}
+
+function saveEdit() {
+  const id = document.getElementById('em-id').value;
+  const m  = S.matches.find(x=>x.id===id);
+  if(!m) return;
+  m.time   = document.getElementById('em-time').value.trim();
+  m.court  = parseInt(document.getElementById('em-court').value)||m.court;
+  const p1 = document.getElementById('em-p1').value.trim();
+  const p2 = document.getElementById('em-p2').value.trim();
+  m.pach   = p1 ? [p1, p2].filter(Boolean) : null;
+  const w1 = document.getElementById('em-w1').value.trim();
+  const w2 = document.getElementById('em-w2').value.trim();
+  m.wing   = w1 ? [w1, w2].filter(Boolean) : null;
+  const sv = document.getElementById('em-score').value;
+  if(sv){ const [a,b]=sv.split('-').map(Number); m.sp=a; m.sw=b; }
+  else { m.sp=null; m.sw=null; }
+  m.locked = document.getElementById('em-locked').checked;
+  save(); closeModal(); renderAdminList();
+  toast('Opgeslagen');
+}
+
+function savePw() {
+  const v = document.getElementById('new-pw').value;
+  if(v.length<4){ toast('Wachtwoord te kort (min. 4)'); return; }
+  S.pw=v; save(); toast('Wachtwoord bijgewerkt');
+  document.getElementById('new-pw').value='';
+}
+
+function exportData() {
+  const data = JSON.stringify({matches:S.matches, pw:S.pw});
+  navigator.clipboard.writeText(data).then(()=>toast('Gekopieerd naar klembord')).catch(()=>{
+    prompt('Kopieer deze JSON:', data);
+  });
+}
+
+function importData() {
+  const raw = document.getElementById('import-json').value.trim();
+  try {
+    const d = JSON.parse(raw);
+    if(!d.matches) throw new Error();
+    S.matches = d.matches;
+    if(d.pw) S.pw = d.pw;
+    save(); renderAdminList(); renderHome();
+    toast('Data geimporteerd');
+    document.getElementById('import-json').value='';
+  } catch(e) { toast('Ongeldige JSON'); }
+}
+
+function resetScores() {
+  if(!confirm('Alle scores verwijderen? Dit kan niet ongedaan gemaakt worden.')) return;
+  S.matches.forEach(m=>{ m.sp=null; m.sw=null; m.locked=false; });
+  save(); renderAdminList(); renderHome();
+  toast('Scores gereset');
+}
+
+function resetToSeed() {
+  if(!confirm('Schema volledig herladen vanuit standaard? Tijden, velden en teams worden overschreven. Scores gaan verloren.')) return;
+  S.matches = JSON.parse(JSON.stringify(SEED));
+  S.pw = S.pw || DEFAULT_PW;
+  save(); renderAdminList(); renderHome();
+  toast('Schema herladen vanuit standaard');
+}
+
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════
+initFirebase();
+</script>
+</body>
+</html>
