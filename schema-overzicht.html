@@ -8,320 +8,87 @@
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 20px; background: #f8f8f8; color: #222; }
   h1 { font-size: 20px; font-weight: 700; margin: 0 0 2px; }
   .sub { font-size: 12px; color: #666; margin: 0 0 18px; }
-  .sub strong { color: #222; }
-
   .wrap { overflow-x: auto; }
   table { border-collapse: collapse; min-width: 900px; width: 100%; table-layout: fixed; background: #fff; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
-
   thead th { background: #1a2540; color: #fff; padding: 10px 5px; font-size: 12px; font-weight: 600; text-align: center; }
   thead th.th-time { width: 56px; background: #111d36; }
-  thead th.th-court { font-size: 13px; }
-
   .tc { background: #f0f2f7; font-weight: 700; font-size: 14px; text-align: center; color: #1a2540; border: 1px solid #ddd; vertical-align: middle; padding: 4px 2px; }
-  .mc { border: 1px solid #e0e0e0; padding: 6px 7px; vertical-align: top; font-size: 10.5px; }
-  .em { border: 1px solid #eee; background: #fafafa; }
-
-  .c-match   { background: #deedfb; border-left: 3px solid #2b7fd4; }
-  .c-wing    { background: #fdecea; border-left: 3px solid #d9534f; }
-  .c-pach    { background: #fef3e0; border-left: 3px solid #c07c0a; }
-  .lv { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px; }
-  .lv-o { color: #185FA5; }
-  .lv-d { color: #993556; }
-
-  .nm { font-size: 10.5px; font-weight: 600; line-height: 1.3; color: #1a2540; }
-  .vs { font-size: 9px; color: #aaa; margin: 3px 0; }
-  .tbd { color: #c0392b; font-style: italic; font-weight: 400; }
-
-  .legend { display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; }
-  .li { display: flex; align-items: center; gap: 7px; font-size: 11.5px; color: #444; }
-  .ld { width: 16px; height: 13px; border-radius: 2px; flex-shrink: 0; }
-
+  td { border: 1px solid #e0e0e0; padding: 6px 5px; vertical-align: top; font-size: 11px; line-height: 1.4; }
+  td.empty { background: #fafafa; }
+  td.confirmed { background: #eaf3ff; }
+  td.bye-p { background: #fff3e0; }
+  td.bye-w { background: #fce4ec; }
+  .lbl { font-size: 10px; font-weight: 700; color: #1a2540; margin-bottom: 3px; }
+  .team { display: block; font-size: 11px; line-height: 1.3; }
+  .team.p { color: #1565c0; }
+  .team.w { color: #333; }
+  .team.seeking { color: #c0392b; font-style: italic; }
+  .vs { display: block; font-size: 9px; color: #999; text-align: center; margin: 1px 0; }
   .stats { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
-  .stat { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px 16px; text-align: center; }
-  .stat-n { font-size: 24px; font-weight: 700; }
-  .stat-l { font-size: 11px; color: #666; margin-top: 1px; }
-  .s-blue { color: #2b7fd4; } .s-red { color: #d9534f; } .s-amb { color: #c07c0a; }
-
-  @media print {
-    body { padding: 8px; background: #fff; }
-    h1 { font-size: 16px; }
-    .stats { display: none; }
-    .wrap { overflow: visible; }
-    table { min-width: auto; }
-  }
+  .stat { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 8px 14px; font-size: 12px; }
+  .stat strong { font-size: 20px; display: block; }
+  .stat.c strong { color: #1565c0; }
+  .stat.p strong { color: #e65100; }
+  .stat.w strong { color: #c62828; }
+  .legend { font-size: 11px; color: #666; margin-top: 10px; }
+  .box { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
+  input.search { margin-bottom: 12px; padding: 7px 12px; font-size: 13px; border: 1px solid #ccc; border-radius: 6px; width: 220px; }
 </style>
+<script>
+function filterTable(val) {
+  val = val.toLowerCase();
+  document.querySelectorAll('td:not(.tc):not(.empty)').forEach(td => {
+    td.style.outline = td.textContent.toLowerCase().includes(val) && val ? '2px solid #f39c12' : '';
+  });
+}
+</script>
 </head>
 <body>
-
-<h1>Malines Group Padel Cup 2026 — Wedstrijdschema</h1>
-<p class="sub">9 mei 2026 &nbsp;·&nbsp; Pachanga Padel Mechelen &nbsp;·&nbsp; gegenereerd op 30 april 2026 &nbsp;·&nbsp; [P] = Pachanga &nbsp;·&nbsp; [W] = Wingfield</p>
-
+<h1>Malines Group Padel Cup 2026 &mdash; Wedstrijdschema</h1>
+<p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 1 mei 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
 <div class="stats">
-  <div class="stat"><div class="stat-n s-blue">10</div><div class="stat-l">Bevestigde wedstrijden</div></div>
-  <div class="stat"><div class="stat-n s-red">21</div><div class="stat-l">Zoeken Wingfield-opponent</div></div>
-  <div class="stat"><div class="stat-n s-amb">2</div><div class="stat-l">Zoeken Pachanga-opponent</div></div>
-  <div class="stat"><div class="stat-n">29</div><div class="stat-l">Pachanga-duo's</div></div>
-  <div class="stat"><div class="stat-n">9</div><div class="stat-l">Wingfield-duo's</div></div>
+  <div class="stat c"><strong>12</strong>Bevestigde wedstrijden</div>
+  <div class="stat p"><strong>21</strong>Zoeken Wingfield-opponent</div>
+  <div class="stat w"><strong>1</strong>Zoeken Pachanga-opponent</div>
 </div>
-
+<input class="search" type="text" placeholder="🔍 Find in page..." oninput="filterTable(this.value)">
 <div class="wrap">
 <table>
 <thead>
-  <tr>
-    <th class="th-time">Tijd</th>
-    <th class="th-court">V1</th>
-    <th class="th-court">V2</th>
-    <th class="th-court">V3</th>
-    <th class="th-court">V4</th>
-    <th class="th-court">V5</th>
-    <th class="th-court">V6</th>
-    <th class="th-court">V7</th>
-    <th class="th-court">V8</th>
-  </tr>
+<tr>
+  <th class="th-time">Tijd</th>
+  <th class="th-court">V1</th><th class="th-court">V2</th><th class="th-court">V3</th><th class="th-court">V4</th><th class="th-court">V5</th><th class="th-court">V6</th><th class="th-court">V7</th><th class="th-court">V8</th>
+</tr>
 </thead>
 <tbody>
-
 <!-- 13:00 -->
 <tr>
-  <td class="tc">13:00</td>
-  <td class="mc c-pach">
-    <div class="lv lv-o">O 10/12</div>
-    <div class="nm tbd">[P] ?</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Jasper P.<br>&amp; Gerrit</div>
-  </td>
-  <td class="mc c-match">
-    <div class="lv lv-d">D 1/1.5</div>
-    <div class="nm">[P] Elise<br>&amp; Lysbet</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Kathleen K.<br>&amp; Véronique</div>
-  </td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 8/9</div>
-    <div class="nm">[P] Yannick VL<br>&amp; Goswin</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Bert<br>&amp; Seppe</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 8/9</div>
-    <div class="nm">[P] Brecht<br>&amp; Tom VH</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 6/7</div>
-    <div class="nm">[P] Philippe<br>&amp; Kris</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 6/7</div>
-    <div class="nm">[P] Marnix<br>&amp; Luc</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 6/7</div>
-    <div class="nm">[P] Jeroen<br>&amp; Dirk VV</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 6/7</div>
-    <div class="nm">[P] Olivier<br>&amp; Michelle</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
+  <td class="tc">13:00</td><td class="bye-w"><div class="lbl">O 10/12</div><span class="team p seeking">[P] ?</span><span class="vs">vs</span><span class="team w">[W] Jasper<br>Pauw &amp; Gerrit<br>Call</span></td><td class="confirmed"><div class="lbl">D 1/1.5</div><span class="team p">[P] Elise<br>Heiv &amp; Lysbet<br>Camm</span><span class="vs">vs</span><span class="team w">[W] Kathleen<br>K. &amp; Veronique<br>Verh</span></td><td class="confirmed"><div class="lbl">O 8/9</div><span class="team p">[P] Yannick<br>VL &amp; Goswin<br>Weem</span><span class="vs">vs</span><span class="team w">[W] Bert<br>Brac &amp; Seppe<br>Rijm</span></td><td class="bye-p"><div class="lbl">O 8/9</div><span class="team p">[P] Brecht<br>Deri &amp; Tom<br>VH</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="confirmed"><div class="lbl">O 6/7</div><span class="team p">[P] Philippe<br>Naze &amp; Kris<br>Van </span><span class="vs">vs</span><span class="team w">[W] Carl &amp; Sally<br>Dens</span></td><td class="bye-p"><div class="lbl">O 6/7</div><span class="team p">[P] Marnix &amp; Luc<br>Roob</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 6/7</div><span class="team p">[P] Jeroen<br>De B &amp; Dirk<br>VV</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 6/7</div><span class="team p">[P] Olivier<br>Beca &amp; Michelle<br>Mela</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
 </tr>
-
 <!-- 14:30 -->
 <tr>
-  <td class="tc">14:30</td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 4/5</div>
-    <div class="nm">[P] Stephan<br>&amp; Bart H.</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Maarten<br>&amp; Andreas</div>
-  </td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Stephane<br>&amp; Gunther</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Sam<br>&amp; Gregory</div>
-  </td>
-  <td class="mc c-pach">
-    <div class="lv lv-o">O 10/12</div>
-    <div class="nm tbd">[P] ?</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Joran<br>&amp; Adriaan VW</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Erwin DL<br>&amp; Geert</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Griet<br>&amp; Liesbeth</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Bart Ce.<br>&amp; Yannick P.</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Bart Ca.<br>&amp; Els</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 1/1.5</div>
-    <div class="nm">[P] Ruth<br>&amp; Marleen</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 2/3</div>
-    <div class="nm">[P] Vicky<br>&amp; Laura</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
+  <td class="tc">14:30</td><td class="confirmed"><div class="lbl">O 4/5</div><span class="team p">[P] Stephan<br>H. &amp; Bart<br>H.</span><span class="vs">vs</span><span class="team w">[W] Maarten<br>Pier &amp; Andreas<br>Van </span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Stephane<br>Van  &amp; Gunther<br>Diet</span><span class="vs">vs</span><span class="team w">[W] Sam<br>Vanh &amp; Gregory<br>Cruc</span></td><td class="confirmed"><div class="lbl">O 10/12</div><span class="team p">[P] Bart<br>Stie &amp; Tristan<br>Parm</span><span class="vs">vs</span><span class="team w">[W] Joran<br>Van  &amp; Adriaan<br>VW</span></td><td class="bye-p"><div class="lbl">O 2/3</div><span class="team p">[P] Erwin<br>DL &amp; Geert<br>Gell</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Griet<br>Hofm &amp; Liesbeth<br>Back</span><span class="vs">vs</span><span class="team w">[W] Bart<br>Ce. &amp; Yannick<br>P.</span></td><td class="bye-p"><div class="lbl">O 2/3</div><span class="team p">[P] Bart<br>Ca. &amp; Els<br>Lamo</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-w"><div class="lbl">D 1/1.5</div><span class="team p seeking">[P] ?</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Vicky<br>Van  &amp; Laura<br>Goos</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
 </tr>
-
 <!-- 16:00 -->
 <tr>
-  <td class="tc">16:00</td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 4/5</div>
-    <div class="nm">[P] Michiel<br>&amp; Jonathan</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Marie<br>&amp; Jill</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Erwin V.<br>&amp; Mario</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ? <span style="font-size:9px;color:#c0392b">(Yari geblesseerd)</span></div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 4/5</div>
-    <div class="nm">[P] Heidi<br>&amp; Michelle</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 2/3</div>
-    <div class="nm">[P] Hilde S.<br>&amp; Mieke</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Valéria<br>&amp; Victor</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Eric<br>&amp; Roger</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 2/3</div>
-    <div class="nm">[P] Katrien<br>&amp; Kathleen D.</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 2/3</div>
-    <div class="nm">[P] Sabine<br>&amp; Ann</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 2/3</div>
-    <div class="nm">[P] Annemie<br>&amp; Valérie</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
+  <td class="tc">16:00</td><td class="confirmed"><div class="lbl">O 4/5</div><span class="team p">[P] Michiel<br>Schu &amp; Jonathan<br>Haes</span><span class="vs">vs</span><span class="team w">[W] Marie<br>Noye &amp; Jill<br>Mich</span></td><td class="bye-p"><div class="lbl">O 2/3</div><span class="team p">[P] Erwin<br>V. &amp; Mario<br>Domi</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 4/5</div><span class="team p">[P] Heidi<br>Cloe &amp; Michelle<br>Mela</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Hilde<br>S. &amp; Mieke<br>De W</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Valeria<br>Bodn &amp; Victor<br>Voet</span><span class="vs">vs</span><span class="team w">[W] Eric<br>Van  &amp; Roger<br>D</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Katrien<br>Geet &amp; Kathleen<br>D.</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Sabine<br>Boel &amp; Ann<br>Cool</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Annemie<br>Van  &amp; Valerie<br>Hofm</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
 </tr>
-
 <!-- 17:30 -->
 <tr>
-  <td class="tc">17:30</td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 10/12</div>
-    <div class="nm">[P] Bram<br>&amp; Matthias</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Michaël<br>&amp; Jasper R.</div>
-  </td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Hilde P.<br>&amp; Pieter</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Bart W.<br>&amp; Sebastien</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 4/5</div>
-    <div class="nm">[P] Hanne<br>&amp; Tess</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 4/5</div>
-    <div class="nm">[P] Marianne<br>&amp; Inge V.</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 4/5</div>
-    <div class="nm">[P] Leen<br>&amp; Christelle</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 8/10</div>
-    <div class="nm">[P] Marianne<br>&amp; Justine</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 6/7</div>
-    <div class="nm">[P] James<br>&amp; Joel</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-d">D 4/5</div>
-    <div class="nm">[P] Tine<br>&amp; Astrid</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td>
+  <td class="tc">17:30</td><td class="confirmed"><div class="lbl">O 10/12</div><span class="team p">[P] Bram<br>De N &amp; Matthias<br>De T</span><span class="vs">vs</span><span class="team w">[W] Michael<br>Van  &amp; Jasper<br>R.</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Hilde<br>S. &amp; Pieter<br>P.</span><span class="vs">vs</span><span class="team w">[W] Bart<br>W. &amp; Sebastien<br>Luyc</span></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] Hanne<br>Boey &amp; Tess<br>De S</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="empty"></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] leen<br>dw &amp; Christelle<br>Op D</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 8/10</div><span class="team p">[P] Marianne<br>Schu &amp; Justine</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 6/7</div><span class="team p">[P] James<br>Vers &amp; Joel<br>Vert</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] Tine<br>Vers &amp; Astrid<br>Geen</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
 </tr>
-
 <!-- 18:30 -->
 <tr>
-  <td class="tc">18:30</td>
-  <td class="mc c-match">
-    <div class="lv lv-o">O 2/3</div>
-    <div class="nm">[P] Ibbor<br>&amp; Tom</div>
-    <div class="vs">vs</div>
-    <div class="nm">[W] Elliot<br>&amp; Adriaan J.</div>
-  </td>
-  <td class="mc c-wing">
-    <div class="lv lv-o">O 4/5</div>
-    <div class="nm">[P] Tommy<br>&amp; Marnix</div>
-    <div class="vs">vs</div>
-    <div class="nm tbd">[W] ?</div>
-  </td><td class="em"></td><td class="em"></td>
-  <td class="em"></td><td class="em"></td><td class="em"></td><td class="em"></td>
+  <td class="tc">18:30</td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Ibbor &amp; Tom<br>Van </span><span class="vs">vs</span><span class="team w">[W] Elliot<br>Coon &amp; Adriaan<br>J.</span></td><td class="bye-p"><div class="lbl">O 4/5</div><span class="team p">[P] Tommy &amp; Marnix</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="empty"></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] Marianne<br>Schu &amp; Inge<br>Verm</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 8/9</div><span class="team p">[P] Bart<br>Van  &amp; Jeroen<br>Stee</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td>
 </tr>
 
 </tbody>
 </table>
 </div>
-
-<div class="legend">
-  <div class="li"><div class="ld" style="background:#deedfb;border-left:3px solid #2b7fd4"></div>Bevestigde wedstrijd (10)</div>
-  <div class="li"><div class="ld" style="background:#fdecea;border-left:3px solid #d9534f"></div>Zoekt Wingfield-opponent (22)</div>
-  <div class="li"><div class="ld" style="background:#fef3e0;border-left:3px solid #c07c0a"></div>Zoekt Pachanga-opponent (2)</div>
-</div>
-
-<p style="font-size:10px;color:#bbb;margin-top:16px">O = Open (Heren) · D = Dames · VL = Van Looy · VH = Van Heffen · VV = Van Velthoven · DL = De Leersnyder · V. = Vandenbrande · Ca. = Campi · Ce. = Ceulemans · H. = Houdenaert/Horckmans · W. = Wils · P. = Perez/Pierlé · R. = Ramaut · VW = Van Wunsel · J. = Jacobs · K. = Kiebooms · D. = Deketelaere · S. = Stevens · P. = Van Vlasselaer</p>
-
+<p class="legend">
+  <span class="box" style="background:#eaf3ff;border:1px solid #90caf9"></span>Bevestigde wedstrijd (12)
+  &nbsp;&nbsp;<span class="box" style="background:#fff3e0;border:1px solid #ffcc80"></span>Zoekt Wingfield-opponent (21)
+  &nbsp;&nbsp;<span class="box" style="background:#fce4ec;border:1px solid #f48fb1"></span>Zoekt Pachanga-opponent (1)
+</p>
 </body>
 </html>
