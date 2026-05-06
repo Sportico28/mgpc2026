@@ -18,11 +18,13 @@
   td.confirmed { background: #eaf3ff; }
   td.bye-p { background: #fff3e0; }
   td.bye-w { background: #fce4ec; }
+  td.pach-pach { background: #e8f5e9; }
   .lbl { font-size: 10px; font-weight: 700; color: #1a2540; margin-bottom: 3px; }
   .team { display: block; font-size: 11px; line-height: 1.3; }
   .team.p { color: #1565c0; }
   .team.w { color: #333; }
   .team.seeking { color: #c0392b; font-style: italic; }
+  .team.pp { color: #2e7d32; font-style: italic; font-size: 10px; }
   .vs { display: block; font-size: 9px; color: #999; text-align: center; margin: 1px 0; }
   .stats { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
   .stat { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 8px 14px; font-size: 12px; }
@@ -30,9 +32,11 @@
   .stat.c strong { color: #1565c0; }
   .stat.p strong { color: #e65100; }
   .stat.w strong { color: #c62828; }
+  .stat.pp strong { color: #2e7d32; }
   .legend { font-size: 11px; color: #666; margin-top: 10px; }
   .box { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
   input.search { margin-bottom: 12px; padding: 7px 12px; font-size: 13px; border: 1px solid #ccc; border-radius: 6px; width: 220px; }
+  .note { font-size: 10px; color: #888; font-style: italic; }
 </style>
 <script>
 function filterTable(val) {
@@ -45,50 +49,222 @@ function filterTable(val) {
 </head>
 <body>
 <h1>Malines Group Padel Cup 2026 &mdash; Wedstrijdschema</h1>
-<p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 1 mei 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
+<p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 6 mei 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
 <div class="stats">
-  <div class="stat c"><strong>17</strong>Bevestigde wedstrijden</div>
-  <div class="stat p"><strong>16</strong>Zoeken Wingfield-opponent</div>
-  <div class="stat w"><strong>0</strong>Zoeken Pachanga-opponent</div>
+  <div class="stat c"><strong>29</strong>Bevestigde wedstrijden</div>
+  <div class="stat p"><strong>2</strong>Zoeken Wingfield-opponent</div>
+  <div class="stat w"><strong>1</strong>Zoekt Pachanga-opponent</div>
+  <div class="stat pp"><strong>3</strong>Pachanga vs Pachanga (aut. punt)</div>
 </div>
-<input class="search" type="text" placeholder="🔍 Find in page..." oninput="filterTable(this.value)">
+<input class="search" type="text" placeholder="🔍 Zoek speler..." oninput="filterTable(this.value)">
 <div class="wrap">
 <table>
 <thead>
 <tr>
   <th class="th-time">Tijd</th>
-  <th class="th-court">V1</th><th class="th-court">V2</th><th class="th-court">V3</th><th class="th-court">V4</th><th class="th-court">V5</th><th class="th-court">V6</th><th class="th-court">V7</th><th class="th-court">V8</th>
+  <th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>V5</th><th>V6</th><th>V7</th><th>V8</th>
 </tr>
 </thead>
 <tbody>
 <!-- 13:00 -->
 <tr>
-  <td class="tc">13:00</td><td class="confirmed"><div class="lbl">O 8/9</div><span class="team p">[P] Yannick<br>VL &amp; Goswin<br>Weem</span><span class="vs">vs</span><span class="team w">[W] Bert<br>Brac &amp; Seppe<br>Rijm</span></td><td class="confirmed"><div class="lbl">O 6/7</div><span class="team p">[P] Philippe<br>Naze &amp; Kris<br>Van </span><span class="vs">vs</span><span class="team w">[W] Carl &amp; Sally<br>Dens</span></td><td class="empty"></td><td class="bye-p"><div class="lbl">O 8/9</div><span class="team p">[P] Brecht<br>Deri &amp; Tom<br>VH</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="confirmed"><div class="lbl">O 6/7</div><span class="team p">[P] Marnix &amp; Luc<br>Roob</span><span class="vs">vs</span><span class="team w">[W] Bart<br>Mich &amp; Kim<br>Cabo</span></td><td class="empty"></td><td class="bye-p"><div class="lbl">O 6/7</div><span class="team p">[P] Jeroen<br>De B &amp; Dirk<br>VV</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="empty"></td>
+  <td class="tc">13:00</td>
+  <td class="confirmed">
+    <div class="lbl">O 8/9</div>
+    <span class="team p">[P] Yannick Van Looy<br>Goswin Weemaes</span><span class="vs">vs</span>
+    <span class="team w">[W] Bert Bracke<br>Seppe Rijmen Mievis</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 6/7</div>
+    <span class="team p">[P] Philippe Naze<br>Kris Van Eeckhout</span><span class="vs">vs</span>
+    <span class="team w">[W] Carl<br>Sally Dens</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 6/7</div>
+    <span class="team p">[P] Marnix<br>Luc Roobrouck</span><span class="vs">vs</span>
+    <span class="team w">[W] Bart Michielsen<br>Kim Cabooter</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 6/7</div>
+    <span class="team p">[P] Jeroen De Becker<br>Dirk Van Velthoven</span><span class="vs">vs</span>
+    <span class="team w">[W] Gerrit Callaerts<br>Eric Frans</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Griet Hofmans<br>Liesbeth Backx</span><span class="vs">vs</span>
+    <span class="team w">[W] Bart Ceulemans<br>Yannick Perez</span>
+  </td>
+  <td class="empty"></td>
+  <td class="empty"></td>
+  <td class="empty"></td>
 </tr>
 <!-- 14:30 -->
 <tr>
-  <td class="tc">14:30</td><td class="confirmed"><div class="lbl">O 10/12</div><span class="team p">[P] Bart<br>Stie &amp; Tristan<br>Parm</span><span class="vs">vs</span><span class="team w">[W] Joran<br>Van  &amp; Adriaan<br>VW</span></td><td class="confirmed"><div class="lbl">O 10/12</div><span class="team p">[P] Ben<br>Gill &amp; Dirk<br>De R</span><span class="vs">vs</span><span class="team w">[W] Jasper<br>Pauw &amp; Michael<br>VdB</span></td><td class="confirmed"><div class="lbl">O 4/5</div><span class="team p">[P] Stephan<br>H. &amp; Bart<br>H.</span><span class="vs">vs</span><span class="team w">[W] Maarten<br>Pier &amp; Andreas<br>Van </span></td><td class="confirmed"><div class="lbl">D 8/10</div><span class="team p">[P] Marianne<br>Schu &amp; Justine</span><span class="vs">vs</span><span class="team w">[W] Charlotte<br>Dup &amp; Loni<br>Assel</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Griet<br>Hofm &amp; Liesbeth<br>Back</span><span class="vs">vs</span><span class="team w">[W] Bart<br>Ce. &amp; Yannick<br>P.</span></td><td class="bye-p"><div class="lbl">O 2/3</div><span class="team p">[P] Bart<br>Ca. &amp; Els<br>Lamo</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 2/3</div><span class="team p">[P] Erwin<br>DL &amp; Geert<br>Gell</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Vicky<br>Van  &amp; Laura<br>Goos</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
+  <td class="tc">14:30</td>
+  <td class="confirmed">
+    <div class="lbl">O 10/12</div>
+    <span class="team p">[P] Bart Stiers<br>Tristan Parms</span><span class="vs">vs</span>
+    <span class="team w">[W] Joran Van Ranst<br>Adriaan Van Wunsel</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 10/12</div>
+    <span class="team p">[P] Ben Gilliams<br>Dirk De Roover</span><span class="vs">vs</span>
+    <span class="team w">[W] Jasper Ramaut<br>Michael Van den Broeck</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 4/5</div>
+    <span class="team p">[P] Stephan Horckmans<br>Bart Houdenaert</span><span class="vs">vs</span>
+    <span class="team w">[W] Sam Vanherp<br>Gregory Crucifix</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">D 8/10</div>
+    <span class="team p">[P] Marianne Schuurmans<br>Justine</span><span class="vs">vs</span>
+    <span class="team w">[W] Charlotte Dupont<br>Loni Asselberghs</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 8/9</div>
+    <span class="team p">[P] Brecht Deriemaeker<br>Tom Van Heffen</span><span class="vs">vs</span>
+    <span class="team w">[W] Carl Cabouter<br>Bart Michielsen</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Bart Campi<br>Els Lamote</span><span class="vs">vs</span>
+    <span class="team w">[W] Bart Wils<br>Sebastien Luyckx</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">D 4/5</div>
+    <span class="team p">[P] Leen dw<br>Christelle Op De Beeck</span><span class="vs">vs</span>
+    <span class="team w">[W] Marie Noyen<br>Liesl Dupont</span>
+  </td>
+  <td class="bye-p">
+    <div class="lbl">D 2/3</div>
+    <span class="team p">[P] Vicky Van Caesbroeck<br>Laura Goossens</span><span class="vs">vs</span>
+    <span class="team seeking">[W] ?</span>
+  </td>
 </tr>
 <!-- 16:00 -->
 <tr>
-  <td class="tc">16:00</td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Stephane<br>Van  &amp; Gunther<br>Diet</span><span class="vs">vs</span><span class="team w">[W] Sam<br>Vanh &amp; Gregory<br>Cruc</span></td><td class="confirmed"><div class="lbl">O 4/5</div><span class="team p">[P] Michiel<br>Schu &amp; Jonathan<br>Haes</span><span class="vs">vs</span><span class="team w">[W] Marie<br>Noye &amp; Jill<br>Mich</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Valeria<br>Bodn &amp; Victor<br>Voet</span><span class="vs">vs</span><span class="team w">[W] Eric<br>Van  &amp; Roger<br>D</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Erwin<br>V. &amp; Mario<br>Domi</span><span class="vs">vs</span><span class="team w">[W] Mady<br>Boss &amp; Marc<br>Stey</span></td><td class="bye-p"><div class="lbl">O 4/5</div><span class="team p">[P] Heidi<br>Cloe &amp; Michelle<br>Mela</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Hilde<br>S. &amp; Mieke<br>De W</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Sabine<br>Boel &amp; Ann<br>Cool</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Annemie<br>Van  &amp; Valerie<br>Hofm</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
+  <td class="tc">16:00</td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Stephane Van Eetvelde<br>Gunther Dietens</span><span class="vs">vs</span>
+    <span class="team w">[W] Carl Cabouter<br>Bart Michielsen</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 4/5</div>
+    <span class="team p">[P] Michiel Schuurmans<br>Jonathan Haesen</span><span class="vs">vs</span>
+    <span class="team w">[W] Maarten Pierle<br>Andreas Van Deyck</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Valeria Bodnar<br>Victor Voet</span><span class="vs">vs</span>
+    <span class="team w">[W] Eric Van der Goten<br>Roger D</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Erwin Vandenbrande<br>Mario Dominguez</span><span class="vs">vs</span>
+    <span class="team w">[W] Mady Bossaerts<br>Marc Steyaert</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 4/5</div>
+    <span class="team p">[P] Heidi Cloetens<br>Michelle Melaerts</span><span class="vs">vs</span>
+    <span class="team w">[W] Marie Noyen<br>Jill Michiels</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">D 4/5</div>
+    <span class="team p">[P] Tine Verstraeten<br>Astrid Geens</span><span class="vs">vs</span>
+    <span class="team w">[W] Sally Dens<br>Kim Cabooter</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 6/7</div>
+    <span class="team p">[P] Tristan Parms<br>Mark Schuurmans</span><span class="vs">vs</span>
+    <span class="team w">[W] Robby De Pauw<br>Jens Bogaerts</span>
+  </td>
+  <td class="pach-pach">
+    <div class="lbl">D 2/3</div>
+    <span class="team p">[P] Annemie Van Hemelrijck<br>Valerie Hofmans</span><span class="vs">vs</span>
+    <span class="team pp">[P] Sabine Boelens<br>Ann Coolen</span>
+    <div class="note">P vs P &mdash; aut. punt Pachanga</div>
+  </td>
 </tr>
 <!-- 17:30 -->
 <tr>
-  <td class="tc">17:30</td><td class="confirmed"><div class="lbl">O 10/12</div><span class="team p">[P] Bram<br>De N &amp; Matthias<br>De T</span><span class="vs">vs</span><span class="team w">[W] Michael<br>Van  &amp; Jasper<br>R.</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Hilde<br>S. &amp; Pieter<br>P.</span><span class="vs">vs</span><span class="team w">[W] Bart<br>W. &amp; Sebastien<br>Luyc</span></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] Hanne<br>Boey &amp; Tess<br>De S</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 2/3</div><span class="team p">[P] Katrien<br>Geet &amp; Kathleen<br>D.</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] leen<br>dw &amp; Christelle<br>Op D</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="empty"></td><td class="bye-p"><div class="lbl">O 6/7</div><span class="team p">[P] James<br>Vers &amp; Joel<br>Vert</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] Tine<br>Vers &amp; Astrid<br>Geen</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td>
+  <td class="tc">17:30</td>
+  <td class="confirmed">
+    <div class="lbl">O 10/12</div>
+    <span class="team p">[P] Bram De Nyn<br>Matthias De Troye</span><span class="vs">vs</span>
+    <span class="team w">[W] Joran Van Ranst<br>Bert Bracke</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Hilde Stevens<br>Pieter Van Vlasselaer</span><span class="vs">vs</span>
+    <span class="team w">[W] Bart Wils<br>Sebastien Luyckx</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">D 4/5</div>
+    <span class="team p">[P] Hanne Boey<br>Tess De Schepper</span><span class="vs">vs</span>
+    <span class="team w">[W] Nicolas Hermans<br>Andreas Van Deyck</span>
+  </td>
+  <td class="bye-w">
+    <div class="lbl">D 2/3</div>
+    <span class="team seeking">[P] ?</span><span class="vs">vs</span>
+    <span class="team w">[W] Greg Keymolen<br>Kristof Smets</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Erwin De Leersnyder<br>Geert Gellaerts</span><span class="vs">vs</span>
+    <span class="team w">[W] Elliot Coone<br>Adriaan Jacobs</span>
+  </td>
+  <td class="pach-pach">
+    <div class="lbl">D 2/3</div>
+    <span class="team p">[P] Hilde Stevens<br>Mieke De Wit</span><span class="vs">vs</span>
+    <span class="team pp">[P] Katrien Geets<br>Kathleen Deketelaere</span>
+    <div class="note">P vs P &mdash; aut. punt Pachanga</div>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">O 6/7</div>
+    <span class="team p">[P] James Verstreken<br>Joel Vertommen</span><span class="vs">vs</span>
+    <span class="team w">[W] Seppe Rijmen Mievis<br>Gerrit Callaerts</span>
+  </td>
+  <td class="empty"></td>
 </tr>
-<!-- 18:30 -->
+<!-- 19:00 -->
 <tr>
-  <td class="tc">18:30</td><td class="confirmed"><div class="lbl">O 8/9</div><span class="team p">[P] Bart<br>Van  &amp; Jeroen<br>Stee</span><span class="vs">vs</span><span class="team w">[W] Jasper<br>Pauw &amp; Gerrit<br>Call</span></td><td class="confirmed"><div class="lbl">O 2/3</div><span class="team p">[P] Ibbor &amp; Tom<br>Van </span><span class="vs">vs</span><span class="team w">[W] Elliot<br>Coon &amp; Adriaan<br>J.</span></td><td class="confirmed"><div class="lbl">D 1/1.5</div><span class="team p">[P] Elise<br>Heiv &amp; Lysbet<br>Camm</span><span class="vs">vs</span><span class="team w">[W] Kathleen<br>K. &amp; Veronique<br>Verh</span></td><td class="bye-p"><div class="lbl">D 4/5</div><span class="team p">[P] Marianne<br>Schu &amp; Inge<br>Verm</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="bye-p"><div class="lbl">O 4/5</div><span class="team p">[P] Tommy &amp; Herbert<br>Idink</span><span class="vs">vs</span><span class="team w seeking">[W] ?</span></td><td class="empty"></td><td class="empty"></td><td class="empty"></td>
+  <td class="tc">19:00</td>
+  <td class="confirmed">
+    <div class="lbl">O 8/9</div>
+    <span class="team p">[P] Bart Van den Bergh<br>Jeroen Steemans</span><span class="vs">vs</span>
+    <span class="team w">[W] Maarten Pierle<br>Jasper Ramaut</span>
+  </td>
+  <td class="bye-p">
+    <div class="lbl">O 2/3</div>
+    <span class="team p">[P] Ibbor<br>Tom Van Ingelgem</span><span class="vs">vs</span>
+    <span class="team seeking">[W] ?</span>
+  </td>
+  <td class="confirmed">
+    <div class="lbl">D 1/1.5</div>
+    <span class="team p">[P] Elise Heivers<br>Lysbet Cammaer</span><span class="vs">vs</span>
+    <span class="team w">[W] Kathleen Kiebooms<br>Veronique Verhoeven</span>
+  </td>
+  <td class="empty"></td>
+  <td class="pach-pach">
+    <div class="lbl">O 4/5</div>
+    <span class="team p">[P] Tommy<br>Herbert Idink</span><span class="vs">vs</span>
+    <span class="team pp">[P] Marianne Schuurmans<br>Inge Vermeylen</span>
+    <div class="note">P vs P &mdash; aut. punt Pachanga</div>
+  </td>
+  <td class="empty"></td>
+  <td class="empty"></td>
+  <td class="empty"></td>
 </tr>
-
 </tbody>
 </table>
 </div>
 <p class="legend">
-  <span class="box" style="background:#eaf3ff;border:1px solid #90caf9"></span>Bevestigde wedstrijd (17)
-  &nbsp;&nbsp;<span class="box" style="background:#fff3e0;border:1px solid #ffcc80"></span>Zoekt Wingfield-opponent (16)
-  &nbsp;&nbsp;<span class="box" style="background:#fce4ec;border:1px solid #f48fb1"></span>Zoekt Pachanga-opponent (0)
+  <span class="box" style="background:#eaf3ff;border:1px solid #90caf9"></span>Bevestigde wedstrijd (29)
+  &nbsp;&nbsp;<span class="box" style="background:#fff3e0;border:1px solid #ffcc80"></span>Zoekt Wingfield-opponent (2)
+  &nbsp;&nbsp;<span class="box" style="background:#fce4ec;border:1px solid #f48fb1"></span>Zoekt Pachanga-opponent (1)
+  &nbsp;&nbsp;<span class="box" style="background:#e8f5e9;border:1px solid #a5d6a7"></span>Pachanga vs Pachanga &mdash; automatisch punt (3)
 </p>
 </body>
 </html>
