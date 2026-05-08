@@ -24,7 +24,6 @@
   .team.p { color: #1565c0; }
   .team.w { color: #333; }
   .team.seeking { color: #c0392b; font-style: italic; }
-  .team.pp { color: #2e7d32; font-style: italic; font-size: 10px; }
   .vs { display: block; font-size: 9px; color: #999; text-align: center; margin: 1px 0; }
   .stats { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
   .stat { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 8px 14px; font-size: 12px; }
@@ -32,7 +31,6 @@
   .stat.c strong { color: #1565c0; }
   .stat.p strong { color: #e65100; }
   .stat.w strong { color: #c62828; }
-  .stat.pp strong { color: #2e7d32; }
   .legend { font-size: 11px; color: #666; margin-top: 10px; }
   .box { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 3px; vertical-align: middle; }
   input.search { margin-bottom: 12px; padding: 7px 12px; font-size: 13px; border: 1px solid #ccc; border-radius: 6px; width: 220px; }
@@ -48,37 +46,36 @@ function filterTable(val) {
 </head>
 <body>
 <h1>Malines Group Padel Cup 2026 &mdash; Wedstrijdschema</h1>
-<p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 7 mei 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
+<p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 8 May 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
 <div class="stats">
   <div class="stat c"><strong>33</strong>Bevestigde wedstrijden</div>
-  <div class="stat pp"><strong>2</strong>Pachanga vs Pachanga (aut. punt)</div>
+  <div class="stat p"><strong>1</strong>Bye Pachanga (geen W)</div>
+  
 </div>
 <input class="search" type="text" placeholder="🔍 Zoek speler..." oninput="filterTable(this.value)">
 <div class="wrap">
 <table>
 <thead>
 <tr>
-  <th class="th-time">Tijd</th>
-  <th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>V5</th><th>V6</th><th>V7</th><th>V8</th>
+  <th class="th-time">Tijd</th><th>V1</th><th>V2</th><th>V3</th><th>V4</th><th>V5</th><th>V6</th><th>V7</th><th>V8</th>
 </tr>
 </thead>
 <tbody>
-<!-- 13:00 -->
 <tr>
   <td class="tc">13:00</td>
   <td class="confirmed">
   <div class="lbl">O 800-900</div>
-  <span class="team p">[P] Yannick Van Looy<br>Goswin Weemaes</span><span class="vs">vs</span>
+  <span class="team p">[P] Brecht Deriemaeker<br>Tom Van Heffen</span><span class="vs">vs</span>
   <span class="team w">[W] Bert Bracke<br>Seppe Rijmen Mievis</span>
 </td>
   <td class="confirmed">
   <div class="lbl">O 600-700</div>
   <span class="team p">[P] Philippe Naze<br>Kris Van Eeckhout</span><span class="vs">vs</span>
-  <span class="team w">[W] Carl<br>Sally Dens</span>
+  <span class="team w">[W] Carl Cabouter<br>Sally Dens</span>
 </td>
   <td class="confirmed">
   <div class="lbl">O 600-700</div>
-  <span class="team p">[P] Marnix<br>Luc Roobrouck</span><span class="vs">vs</span>
+  <span class="team p">[P] Lucas Ral<br>Luc Roobrouck</span><span class="vs">vs</span>
   <span class="team w">[W] Bart Michielsen<br>Kim Cabooter</span>
 </td>
   <td class="confirmed">
@@ -99,7 +96,6 @@ function filterTable(val) {
   <td class="empty"></td>
   <td class="empty"></td>
 </tr>
-<!-- 14:30 -->
 <tr>
   <td class="tc">14:30</td>
   <td class="confirmed">
@@ -124,7 +120,7 @@ function filterTable(val) {
 </td>
   <td class="confirmed">
   <div class="lbl">O 800-900</div>
-  <span class="team p">[P] Brecht Deriemaeker<br>Tom Van Heffen</span><span class="vs">vs</span>
+  <span class="team p">[P] Yannick Van Looy<br>Goswin Weemaes</span><span class="vs">vs</span>
   <span class="team w">[W] Carl Cabouter<br>Bart Michielsen</span>
 </td>
   <td class="confirmed">
@@ -143,7 +139,6 @@ function filterTable(val) {
   <span class="team w">[W] Freek Dangez<br>Derrick Van Vliet</span>
 </td>
 </tr>
-<!-- 16:00 -->
 <tr>
   <td class="tc">16:00</td>
   <td class="confirmed">
@@ -187,7 +182,6 @@ function filterTable(val) {
   <span class="team w">[W] Katrien Geets<br>Kathleen Deketelaere</span>
 </td>
 </tr>
-<!-- 17:30 -->
 <tr>
   <td class="tc">17:30</td>
   <td class="confirmed">
@@ -225,13 +219,8 @@ function filterTable(val) {
   <span class="team p">[P] James Verstreken<br>Joel Vertommen</span><span class="vs">vs</span>
   <span class="team w">[W] Seppe Rijmen Mievis<br>Gerrit Callaerts</span>
 </td>
-  <td class="pach-pach">
-  <div class="lbl">D 800-1000</div>
-  <span class="team p">[P] Justine Delbeke<br>Tine Verstraeten</span>
-  <span class="team pp">P vs P &mdash; aut. punt Pachanga</span>
-</td>
+  <td class="empty"></td>
 </tr>
-<!-- 19:00 -->
 <tr>
   <td class="tc">19:00</td>
   <td class="confirmed">
@@ -244,10 +233,10 @@ function filterTable(val) {
   <span class="team p">[P] Ibbor<br>Tom Van Ingelgem</span><span class="vs">vs</span>
   <span class="team w">[W] Elliot Coone<br>Adriaan Jacobs</span>
 </td>
-  <td class="pach-pach">
+  <td class="bye-p">
   <div class="lbl">D 400-500</div>
-  <span class="team p">[P] Marianne Schuurmans<br>Inge Vermeylen</span>
-  <span class="team pp">P vs P &mdash; aut. punt Pachanga</span>
+  <span class="team p">[P] Marianne Schuurmans<br>Inge Vermeylen</span><span class="vs">vs</span>
+  <span class="team seeking">[W] —</span>
 </td>
   <td class="confirmed">
   <div class="lbl">O 200-300</div>
@@ -267,9 +256,11 @@ function filterTable(val) {
 </table>
 </div>
 <p class="legend">
-  <span class="box" style="background:#eaf3ff;border:1px solid #ccc"></span>Bevestigde wedstrijd (33)
+  <span class="box" style="background:#eaf3ff;border:1px solid #ccc"></span>Bevestigd (33)
   &nbsp;
-  <span class="box" style="background:#e8f5e9;border:1px solid #ccc"></span>Pachanga vs Pachanga &mdash; automatisch punt (2)
+  <span class="box" style="background:#fff3e0;border:1px solid #ccc"></span>Bye P (1)
+  &nbsp;
+  <span class="box" style="background:#fce4ec;border:1px solid #ccc"></span>Bye W (0)
 </p>
 </body>
 </html>
