@@ -48,8 +48,8 @@ function filterTable(val) {
 <h1>Malines Group Padel Cup 2026 &mdash; Wedstrijdschema</h1>
 <p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 8 May 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
 <div class="stats">
-  <div class="stat c"><strong>34</strong>Bevestigde wedstrijden</div>
-  
+  <div class="stat c"><strong>33</strong>Bevestigde wedstrijden</div>
+  <div class="stat p"><strong>1</strong>Bye Pachanga (geen W)</div>
   
 </div>
 <input class="search" type="text" placeholder="🔍 Zoek speler..." oninput="filterTable(this.value)">
@@ -233,10 +233,10 @@ function filterTable(val) {
   <span class="team p">[P] Ibbor<br>Tom Van Ingelgem</span><span class="vs">vs</span>
   <span class="team w">[W] Elliot Coone<br>Adriaan Jacobs</span>
 </td>
-  <td class="confirmed">
+  <td class="bye-p">
   <div class="lbl">D 400-500</div>
   <span class="team p">[P] Marianne Schuurmans<br>Inge Vermeylen</span><span class="vs">vs</span>
-  <span class="team w">[W] Bram De Nyn<br>Tess De Schepper</span>
+  <span class="team seeking">[W] —</span>
 </td>
   <td class="confirmed">
   <div class="lbl">O 200-300</div>
@@ -256,9 +256,9 @@ function filterTable(val) {
 </table>
 </div>
 <p class="legend">
-  <span class="box" style="background:#eaf3ff;border:1px solid #ccc"></span>Bevestigd (34)
+  <span class="box" style="background:#eaf3ff;border:1px solid #ccc"></span>Bevestigd (33)
   &nbsp;
-  <span class="box" style="background:#fff3e0;border:1px solid #ccc"></span>Bye P (0)
+  <span class="box" style="background:#fff3e0;border:1px solid #ccc"></span>Bye P (1)
   &nbsp;
   <span class="box" style="background:#fce4ec;border:1px solid #ccc"></span>Bye W (0)
 </p>
