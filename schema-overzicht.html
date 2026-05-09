@@ -49,7 +49,7 @@ function filterTable(val) {
 <p class="sub">9 mei 2026 &nbsp;&middot;&nbsp; Pachanga Padel Mechelen &nbsp;&middot;&nbsp; gegenereerd op 9 May 2026 &nbsp;&middot;&nbsp; [P] = Pachanga &nbsp;&middot;&nbsp; [W] = Wingfield</p>
 <div class="stats">
   <div class="stat c"><strong>32</strong>Bevestigde wedstrijden</div>
-  <div class="stat p"><strong>1</strong>Bye Pachanga (geen W)</div>
+  <div class="stat p"><strong>2</strong>Bye Pachanga (geen W)</div>
   <div class="stat w"><strong>1</strong>Bye Wingfield (geen P)</div>
 </div>
 <input class="search" type="text" placeholder="🔍 Zoek speler..." oninput="filterTable(this.value)">
@@ -223,7 +223,11 @@ function filterTable(val) {
   <span class="team p">[P] James Verstreken<br>Joel Vertommen</span><span class="vs">vs</span>
   <span class="team w">[W] Seppe Rijmen Mievis<br>Gerrit Callaerts</span>
 </td>
-  <td class="empty"></td>
+  <td class="bye-p">
+  <div class="lbl">O 600-700</div>
+  <span class="team p">[P] Bart Ceulemans<br>Yannick Perez</span><span class="vs">vs</span>
+  <span class="team seeking">[W] —</span>
+</td>
 </tr>
 <tr>
   <td class="tc">19:00</td>
@@ -258,7 +262,7 @@ function filterTable(val) {
 <p class="legend">
   <span class="box" style="background:#eaf3ff;border:1px solid #ccc"></span>Bevestigd (32)
   &nbsp;
-  <span class="box" style="background:#fff3e0;border:1px solid #ccc"></span>Bye P (1)
+  <span class="box" style="background:#fff3e0;border:1px solid #ccc"></span>Bye P (2)
   &nbsp;
   <span class="box" style="background:#fce4ec;border:1px solid #ccc"></span>Bye W (1)
 </p>
